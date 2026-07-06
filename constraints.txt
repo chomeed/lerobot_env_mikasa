@@ -1,0 +1,13 @@
+# Pip constraints for envs running lerobot + mikasa_robo_suite together.
+#
+# The mikasa stack needs gymnasium 0.29 (gymnasium 1.0 removed the
+# Wrapper.__getattr__ attribute forwarding its wrappers rely on) and numpy<2
+# (mani-skill pin), which contradicts lerobot's declared deps. These pins
+# stop pip from ever "fixing" that by upgrading/downgrading either side.
+#
+# Use per-command:   PIP_CONSTRAINT=constraints.txt pip install ...
+# Or enforce env-wide by exporting PIP_CONSTRAINT in the env's activate.d.
+gymnasium==0.29.1
+numpy==1.26.4
+lerobot==0.5.2
+torch==2.11.0

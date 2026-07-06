@@ -3,10 +3,15 @@ name = "lerobot_env_mikasa"
 version = "0.1.0"
 description = "LeRobot env plugin for the MIKASA-Robo-VLA memory-intensive manipulation benchmark"
 requires-python = ">=3.12"
+# The mikasa stack (mikasa_robo_suite / mani-skill) requires gymnasium 0.29
+# (1.0 removed the Wrapper.__getattr__ forwarding its wrappers rely on) and
+# numpy<2. These pins conflict with lerobot's declared deps by design, so a
+# with-deps install fails loudly instead of silently upgrading either side.
+# Install into an env that already has lerobot:  pip install -e . --no-deps
 dependencies = [
-  "lerobot",
-  "gymnasium",
-  "numpy",
+  "lerobot>=0.5.2",
+  "gymnasium==0.29.1",
+  "numpy<2.0.0",
 ]
 # `mikasa_robo_suite` and `mani_skill` must be installed separately
 # (e.g. from envs/MIKASA-Robo); they are imported lazily at env creation.

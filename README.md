@@ -7,11 +7,18 @@ lerobot needed.
 
 ## Install
 
+Into an env that already has lerobot, mikasa_robo_suite, and mani_skill:
+
 ```bash
-pip install -e .
-# plus, separately (e.g. from envs/MIKASA-Robo):
-#   mikasa_robo_suite, mani_skill
+pip install -e . --no-deps
 ```
+
+`--no-deps` is required: the mikasa stack needs `gymnasium==0.29.1` / `numpy<2`
+(pinned in this package's dependencies), which conflicts with lerobot's declared
+deps — a with-deps install fails with `ResolutionImpossible` on purpose rather
+than letting pip silently upgrade gymnasium and break MIKASA env creation.
+To protect the env from *future* pip installs moving these versions, see
+[constraints.txt](constraints.txt).
 
 ## Usage
 
