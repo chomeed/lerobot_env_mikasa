@@ -1,0 +1,16 @@
+[project]
+name = "lerobot_env_mikasa"
+version = "0.1.0"
+description = "LeRobot env plugin for the MIKASA-Robo-VLA memory-intensive manipulation benchmark"
+requires-python = ">=3.12"
+dependencies = [
+  "lerobot",
+  "gymnasium",
+  "numpy",
+]
+# `mikasa_robo_suite` and `mani_skill` must be installed separately
+# (e.g. from envs/MIKASA-Robo); they are imported lazily at env creation.
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
