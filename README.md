@@ -5,6 +5,17 @@ manipulation benchmark (ManiSkill/SAPIEN). Installing it makes `--env.type=mikas
 in `lerobot-train` / `lerobot-eval` via lerobot's third-party plugin discovery — no fork of
 lerobot needed.
 
+> [!WARNING]
+> **Version mismatch: `gymnasium` must stay at `0.29.1`, even though lerobot declares
+> `gymnasium>=1.1.1`.** mikasa_robo_suite's wrappers rely on the implicit
+> `Wrapper.__getattr__` attribute forwarding that gymnasium 1.0 removed — on gymnasium ≥1.0,
+> MIKASA env creation crashes with
+> `AttributeError: 'StateOnlyTensorToDictWrapper' object has no attribute 'device'`.
+> Because of this conflict, always install this package (and anything else in the env) with
+> `pip install --no-deps` so pip never re-resolves lerobot's deps and upgrades gymnasium.
+> If gymnasium gets upgraded by accident, fix with `pip install gymnasium==0.29.1`.
+> numpy is not affected: both 1.26.x and 2.x work with this stack.
+
 ## Install
 
 Into an env that already has lerobot, mikasa_robo_suite, and mani_skill:
@@ -13,10 +24,7 @@ Into an env that already has lerobot, mikasa_robo_suite, and mani_skill:
 pip install -e . --no-deps
 ```
 
-Note: mikasa_robo_suite's wrappers require `gymnasium==0.29.1` (gymnasium 1.0
-removed the `Wrapper.__getattr__` attribute forwarding they rely on), which
-conflicts with lerobot's declared deps. Installing with deps lets pip upgrade
-gymnasium and breaks MIKASA env creation — hence `--no-deps`.
+`--no-deps` matters — see the version-mismatch warning above.
 
 ## Usage
 
